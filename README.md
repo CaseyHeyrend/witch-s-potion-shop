@@ -11,10 +11,10 @@
 [Software Demo Video](http://youtube.link.goes.here)
 
 # Development Environment
+- VS Code
+- Java
+- javac
 
-{Describe the tools that you used to develop the software}
-
-{Describe the programming language that you used and any libraries.}
 
 # Useful Websites
 
