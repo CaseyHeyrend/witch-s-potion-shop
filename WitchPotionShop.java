@@ -1,4 +1,5 @@
-//
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;// Import necessary classes for managing the list of potions
@@ -15,14 +16,17 @@ public class WitchPotionShop {
     static int totalIngredientSales = 0;
 
     public static void main(String[] args) {
-        // Add some potions to the shop so it has something to sell
-        potions.add(new Potion("Healing Elixir", 15, 10));// Add a healing potion with price 15 and stock 10
-        potions.add(new Potion("Veritaserum", 30, 10));// Add a truth serum potion with price 30 and stock 10
-        potions.add(new Potion("Elixir of Focus", 20, 15));// Add a focus potion with price 20 and stock 15
-
-        ingredients.add(new Ingredient("Mandrake Root", 5, 20));// Add an ingredient with price 5 and quantity 20
-        ingredients.add(new Ingredient("Dittany", 10, 15));// Add an ingredient with price 10 and quantity 15
-        ingredients.add(new Ingredient("Pixie Dust", 25, 10));// Add an ingredient with price 25 and quantity 10
+        boolean inventoryLoaded = loadInventory();
+        if (!inventoryLoaded) {
+            // Add some potions to the shop so it has something to sell
+            potions.add(new Potion("Healing Elixir", 15, 10));// Add a healing potion with price 15 and stock 10
+            potions.add(new Potion("Veritaserum", 30, 10));// Add a truth serum potion with price 30 and stock 10
+            potions.add(new Potion("Elixir of Focus", 20, 15));// Add a focus potion with price 20 and stock 15
+        
+            ingredients.add(new Ingredient("Mandrake Root", 5, 20));// Add an ingredient with price 5 and quantity 20
+            ingredients.add(new Ingredient("Dittany", 10, 15));// Add an ingredient with price 10 and quantity 15
+            ingredients.add(new Ingredient("Pixie Dust", 25, 10));// Add an ingredient with price 25 and quantity 10
+        }
 
         boolean running = true;
         // Display welcome message
@@ -58,6 +62,7 @@ public class WitchPotionShop {
             }
     }
     input.close();
+
 }
 // View the shop's inventory, including potions and ingredients
 public static void viewInventory() {
@@ -274,6 +279,53 @@ public static void viewStatistics() {
     System.out.println("Potions remaining: " + totalPotions);
     System.out.println("Ingredients remaining: " + totalIngredients);
 }
+
+ // Stretch Challenge: Load shop inventory from a CSV file
+public static boolean loadInventory() {
+    try (BufferedReader reader =
+            new BufferedReader(new FileReader("Inventory.csv"))) {
+
+        String line = reader.readLine(); // Skip the header
+
+        if (line == null) {
+            System.out.println("Inventory file is empty.");
+            return false;
+        }
+
+        potions.clear();
+        ingredients.clear();
+
+        while ((line = reader.readLine()) != null) {
+            String[] data = line.split(",", -1);
+
+            if (data.length != 4) {
+                System.out.println("Invalid inventory row: " + line);
+                return false;
+            }
+
+            String type = data[0];
+            String name = data[1];
+            int price = Integer.parseInt(data[2]);
+            int amount = Integer.parseInt(data[3]);
+
+            if (type.equals("Potion")) {
+                potions.add(new Potion(name, price, amount));
+            } else if (type.equals("Ingredient")) {
+                ingredients.add(new Ingredient(name, price, amount));
+            }
+        }
+
+        System.out.println("Inventory loaded successfully!");
+        return true;
+
+    } 
+    catch (IOException | NumberFormatException e) {
+        System.out.println("Could not load inventory: " + e.getMessage());
+        return false;
+    }
+
+}
+
 // Stretch Challenge: Save shop statistics to a file
 public static void saveStatistics() {
     try (FileWriter writer = new FileWriter("Statistics.csv")) {
