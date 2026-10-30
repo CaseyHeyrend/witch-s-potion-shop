@@ -1,8 +1,8 @@
 Type,Name,Price,Stock/Quantity
-Potion,Healing Elixir,15,10
-Potion,Veritaserum,30,8
+Potion,Healing Elixir,15,20
+Potion,Veritaserum,30,15
 Potion,Elixir of Focus,20,15
-Potion,Moonlight Draught,35,4
+Potion,Moonlight Draught,35,5
 Ingredient,Mandrake Root,5,20
 Ingredient,Dittany,10,15
 Ingredient,Pixie Dust,25,10

@@ -27,6 +27,12 @@ public class WitchPotionShop {
             ingredients.add(new Ingredient("Dittany", 10, 15));// Add an ingredient with price 10 and quantity 15
             ingredients.add(new Ingredient("Pixie Dust", 25, 10));// Add an ingredient with price 25 and quantity 10
         }
+        boolean statisticsLoaded = loadStatistics();
+        if (!statisticsLoaded) {
+            gold = 200;
+            totalPotionSales = 0;
+            totalIngredientSales = 0;
+        }
 
         boolean running = true;
         // Display welcome message
@@ -143,7 +149,7 @@ public static void sellPotion() {
             }
                 selected.stock-= amountToSell;
                 gold += selected.price * amountToSell;
-                totalPotionSales+= amountToSell;
+                totalPotionSales += amountToSell;
 
                 System.out.println("You sold " + amountToSell + " " + selected.name + "!");
                 System.out.println("You earned " + (selected.price * amountToSell) + " gold.");
@@ -186,7 +192,7 @@ public static void sellIngredient() {
             }
                 selected.quantity-= amountToSell;
                 gold += selected.price * amountToSell;
-                totalIngredientSales++;
+                totalIngredientSales += amountToSell;
 
                 System.out.println("You sold " + amountToSell + " " + selected.name + "!");
                 System.out.println("You earned " + (selected.price * amountToSell) + " gold.");
@@ -279,7 +285,24 @@ public static void viewStatistics() {
     System.out.println("Potions remaining: " + totalPotions);
     System.out.println("Ingredients remaining: " + totalIngredients);
 }
-
+// Stretch Challenge: Load Shop Statistics from a file
+public static boolean loadStatistics() {
+    try (BufferedReader reader = new BufferedReader(new FileReader("Statistics.csv"))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(":");
+            if (parts.length != 2) {
+                System.out.println("Invalid statistics format.");
+                return false;
+            }
+        }
+    }
+    catch (IOException e) {
+        System.out.println("Could not load statistics: " + e.getMessage());
+        return false;
+    }
+    return true;
+}  
  // Stretch Challenge: Load shop inventory from a CSV file
 public static boolean loadInventory() {
     try (BufferedReader reader =
