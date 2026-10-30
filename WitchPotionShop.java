@@ -16,7 +16,7 @@ public class WitchPotionShop {
     static int totalIngredientSales = 0;
 
     public static void main(String[] args) {
-        boolean inventoryLoaded = loadInventory();
+        boolean inventoryLoaded = loadInventory();// Attempt to load inventory from a CSV file also check if there is extra }
         if (!inventoryLoaded) {
             // Add some potions to the shop so it has something to sell
             potions.add(new Potion("Healing Elixir", 15, 10));// Add a healing potion with price 15 and stock 10
