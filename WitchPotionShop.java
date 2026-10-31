@@ -285,24 +285,55 @@ public static void viewStatistics() {
     System.out.println("Potions remaining: " + totalPotions);
     System.out.println("Ingredients remaining: " + totalIngredients);
 }
-// Stretch Challenge: Load Shop Statistics from a file
+
+// Stretch Challenge: Load shop statistics from a CSV file
 public static boolean loadStatistics() {
-    try (BufferedReader reader = new BufferedReader(new FileReader("Statistics.csv"))) {
+    try (BufferedReader reader =
+            new BufferedReader(new FileReader("Statistics.csv"))) {
+
         String line;
+
         while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(":");
-            if (parts.length != 2) {
-                System.out.println("Invalid statistics format.");
+            String[] data = line.split(":", 2);
+
+            if (data.length != 2) {
+                System.out.println("Invalid statistics row: " + line);
                 return false;
             }
+
+            String key = data[0].trim();
+            int value = Integer.parseInt(data[1].trim());
+
+            switch (key) {
+                case "Gold earned and available" ->
+                    gold = value;
+
+                case "Potions sold" ->
+                    totalPotionSales = value;
+
+                case "Ingredients sold" ->
+                    totalIngredientSales = value;
+
+                case "Potions remaining", "Ingredients remaining" -> {
+                    // These values are already calculated from inventory.
+                }
+
+                default ->
+                    System.out.println("Unknown statistic: " + key);
+            }
         }
+
+        System.out.println("Shop statistics loaded successfully!");
+        return true;
+
     }
-    catch (IOException e) {
+    catch (IOException | NumberFormatException e) {
         System.out.println("Could not load statistics: " + e.getMessage());
         return false;
     }
-    return true;
-}  
+}
+
+
  // Stretch Challenge: Load shop inventory from a CSV file
 public static boolean loadInventory() {
     try (BufferedReader reader =
