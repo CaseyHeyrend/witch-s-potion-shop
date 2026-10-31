@@ -93,7 +93,7 @@ public static void viewIngredients() {
     System.out.println("\n-- Available Ingredients: --");
 
     for (int i = 0; i < ingredients.size(); i++) {
-        Ingredient ingredient = ingredients.get(i);
+        Ingredient ingredient = ingredients.get(i);// Display each ingredient with its name, price, and quantity
 
                     System.out.println((i + 1) + ". " + ingredient.name
                     + " - " + ingredient.price + " gold"
