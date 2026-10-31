@@ -6,7 +6,7 @@ I created a Java program called "Witch's Potion Shop." This program is a consol
 I created this program to improve my Java skills and build a functional application. As a beginner, I wanted a project that would help me practice the basics and understand how different parts of a program work together. 
 
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/N2FMCTFOqBg)
 
 # Development Environment
 - VS Code

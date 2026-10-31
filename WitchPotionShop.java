@@ -1,7 +1,7 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.BufferedReader;// Import necessary classes for reading from files
+import java.io.FileReader;// Import necessary classes for reading from files
+import java.io.FileWriter;// Import necessary classes for writing to files
+import java.io.IOException;// Import necessary classes for handling input/output exceptions
 import java.util.ArrayList;// Import necessary classes for managing the list of potions
 import java.util.Scanner;// Import necessary classes for user input and managing the list of potions
 
